@@ -40,7 +40,7 @@ Run the main script:
 python -O GP_vortex_GD.py
 ```
 
-To run it in the background (**strongly recomend running in background.**):
+To run it in the background (**Strongly recommended to run all the program in the background.**):
 ```
 nohup python -O GP_vortex_GD.py &
 ```
