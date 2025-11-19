@@ -72,11 +72,11 @@ The difference of `GP_vortex_GD.py`, `GP_vortex_exact.py`, `GP_vortex_fit.py`, a
 
 `GP_vortex_GD.py` : Directlly run the gradient descent.
 
-`GP_vortex_exact.py` : One(or more) step TDVP can increase the bond dimension of the initial state by exactly constructing the $\(|\psi(x,t)|^2\)$. This is feasible only for small $\(N_{qubit}\)$ = 8~12.
+`GP_vortex_exact.py` : One(or more) step TDVP can increase the bond dimension of the initial state by exactly constructing the $|\psi(x,t)|^2$. This is feasible only for small $N_{qubit}$ = 8~12.
 
-`GP_vortex_SRC.py` : One(or more) step TDVP can increase the bond dimension of the initial state by [SRC](https://arxiv.org/pdf/2504.06475) algorithm constructing the $\(|\psi(x,t)|^2\)$. This is feasible only for middle $\(N_{qubit}\)$ = 12 ~ 17.
+`GP_vortex_SRC.py` : One(or more) step TDVP can increase the bond dimension of the initial state by [SRC](https://arxiv.org/pdf/2504.06475) algorithm constructing the $|\psi(x,t)|^2$. This is feasible only for middle $N_{qubit}$ = 12 ~ 17.
 
-`GP_vortex_fit.py` : One(or more) step TDVP can increase the bond dimension of the initial state by fit(variational) constructing the $\(|\psi(x,t)|^2\)$. This is feasible only for large $\(N_{qubit}\)$ = 17 to more.
+`GP_vortex_fit.py` : One(or more) step TDVP can increase the bond dimension of the initial state by fit(variational) constructing the $|\psi(x,t)|^2$. This is feasible only for large $N_{qubit}$ = 17 to more.
 
 After the simulation completes, run:
 ```
