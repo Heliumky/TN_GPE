@@ -30,6 +30,9 @@ Install them using pip:
 pip3 install numpy scipy matplotlib ncon pickle
 ```
 
+Or you can install the all packages and creating new python environment through the `cytnx.yml` except for package `xfac`.
+If you use the initial state to be random state, then the package `xfac` is not required.
+
 ## Folder Structure
 
 ### 1. `GD/`: Gradient Descent Solver
