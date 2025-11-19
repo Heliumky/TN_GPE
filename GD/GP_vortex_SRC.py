@@ -166,24 +166,17 @@ if __name__ == '__main__':
     psi = qtt.grow_site_2D_1th (psi,maxdim,dtype = np.complex128)
     psi = qtt.grow_site_2D_1th (psi,maxdim,dtype = np.complex128)
     print('Initial psi dim, before compression:',npmps.MPS_dims(psi))
+    psi = npmps.svd_compress_MPS (psi, cutoff=1e-30)
     print('Initial psi dim:',npmps.MPS_dims(psi))
     #psi = qtt.normalize_MPS_by_integral (psi, x1, x2, Dim=2)
     
+
     # TDVP
     dt = dx**2/2
     print('dt',dt)
     with open('tci_initial.pkl', 'wb') as f:
         pickle.dump(psi, f)
-    #psi = npmps.compress_MPS (psi, maxdim=maxdim, cutoff = cutoff_mps)
-    psi = npmps.svd_compress_MPS (psi, cutoff=1e-30)
-    print(psi[0].shape)
-    print('Initial compress_psi dim:',npmps.MPS_dims(psi))
-    with open('tci_initial_comp.pkl', 'wb') as f:
-        pickle.dump(psi, f)
-    fit = fit_psi_sqr (psi, maxdim)
-    with open('tci_initial_src.pkl', 'wb') as f:
-        pickle.dump(fit, f)
-    print(psi[0].shape)
+
     psi, enss, ts = imag_time_evol (1, H0, psi, g, dt, 1, maxdim, 120, cutoff_mps, cutoff_mps2, krylovDim)
     psi_GD2, ens_GD2, ts2 = gradient_descent2 (1, H0, psi, g, step_size=dt, steps=1, maxdim=maxdim, cutoff=cutoff_mps, maxdim_psi2=maxdim_psi2, cutoff_psi2=cutoff_mps2, psi2_update_length=psi2_update_length)
     psi_GD2, ens_GD2, ts2 = gradient_descent2 (step_iter, H0, psi_GD2, g, step_size=dt, steps=steps, maxdim=maxdim, cutoff=cutoff_mps, maxdim_psi2=maxdim_psi2, cutoff_psi2=cutoff_mps2, psi2_update_length=psi2_update_length)

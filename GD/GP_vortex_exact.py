@@ -13,15 +13,20 @@ import gradient_descent_GP as gdGP
 import time
 import pickle
 
-def fit_psi_sqr (psi, maxdim):
-    psi = copy.copy(psi)
+def psi_sqr (psi):
     psi_op = qtt.MPS_to_MPO (psi)
     psi_op = npmps.conj (psi_op)
-    fit = npmps.SRC(psi_op, psi, maxdim)
+    res = npmps.exact_apply_MPO (psi_op, psi)
+    return res
+
+def fit_psi_sqr (psi, psi2, maxdim, cutoff):
+    psi_op = qtt.MPS_to_MPO (psi)
+    psi_op = npmps.conj (psi_op)
+    fit = dmrg.fit_apply_MPO (psi_op, psi, psi2, numCenter=2, nsweep=1, maxdim=maxdim, cutoff=cutoff)
     return fit
 
-def make_H_GP (H0, psi, g, maxdim_psi2):
-    psi2 = fit_psi_sqr(psi, maxdim_psi2)
+def make_H_GP (H0, psi, psi2, g, maxdim_psi2, cutoff_mps2):
+    psi2 = fit_psi_sqr(psi, psi2, maxdim_psi2, cutoff = cutoff_mps2)
     H_psi = qtt.MPS_to_MPO (psi2)
     H_psi[0] *= g
     H = npmps.sum_2MPO (H0, H_psi)
@@ -29,6 +34,7 @@ def make_H_GP (H0, psi, g, maxdim_psi2):
 
 def imag_time_evol (step_iter, H0, psi, g, dt, steps, maxdim, maxdim_psi2, cutoff_mps, cutoff_mps2, krylovDim):
     psi = copy.copy(psi)
+    psi2 = psi_sqr (psi)
     enss = []
     ts = []
     t11 = time.time()
@@ -36,7 +42,7 @@ def imag_time_evol (step_iter, H0, psi, g, dt, steps, maxdim, maxdim_psi2, cutof
     for n in range(steps):
         t1 = time.time()                                # timedx
         # Update the Hamiltonian
-        H, psi2 = make_H_GP (H0, psi, g, maxdim_psi2)
+        H, psi2 = make_H_GP (H0, psi, psi2, g,  maxdim_psi2, cutoff_mps2)
         # TDVP
         psi, ens, terrs = dmrg.tdvp (2, psi, H, dt, [maxdim], cutoff=cutoff_mps, krylovDim=krylovDim, verbose=False)
         t2 = time.time()                                # time
@@ -160,30 +166,23 @@ if __name__ == '__main__':
 
     # Initial MPS
     #psi = get_init_state (N, x1, x2, maxdim=maxdim)
-    #psi = get_init_rand_state (N, x1, x2, maxdim=40, seed = 15, dtype=np.complex128)
-    psi = get_init_other_state (N, x1, x2, maxdim, "GD2_mps_step_2200_input.pkl")
+    #psi = get_init_rand_state (N, x1, x2, maxdim=maxdim, seed = 15, dtype=np.complex128)
+    psi = get_init_other_state (N, x1, x2, maxdim, "GD2_mps_step_1400_input.pkl")
     psi = qtt.grow_site_2D_1th (psi,maxdim,dtype = np.complex128)
     psi = qtt.grow_site_2D_1th (psi,maxdim,dtype = np.complex128)
     psi = qtt.grow_site_2D_1th (psi,maxdim,dtype = np.complex128)
     print('Initial psi dim, before compression:',npmps.MPS_dims(psi))
+    psi = npmps.svd_compress_MPS (psi, cutoff=1e-30)
     print('Initial psi dim:',npmps.MPS_dims(psi))
     #psi = qtt.normalize_MPS_by_integral (psi, x1, x2, Dim=2)
     
+
     # TDVP
     dt = dx**2/2
     print('dt',dt)
     with open('tci_initial.pkl', 'wb') as f:
         pickle.dump(psi, f)
-    #psi = npmps.compress_MPS (psi, maxdim=maxdim, cutoff = cutoff_mps)
-    psi = npmps.svd_compress_MPS (psi, cutoff=1e-30)
-    print(psi[0].shape)
-    print('Initial compress_psi dim:',npmps.MPS_dims(psi))
-    with open('tci_initial_comp.pkl', 'wb') as f:
-        pickle.dump(psi, f)
-    fit = fit_psi_sqr (psi, maxdim)
-    with open('tci_initial_src.pkl', 'wb') as f:
-        pickle.dump(fit, f)
-    print(psi[0].shape)
-    psi, enss, ts = imag_time_evol (1, H0, psi, g, dt, 1, maxdim, 120, cutoff_mps, cutoff_mps2, krylovDim)
+
+    psi, enss, ts = imag_time_evol (1, H0, psi, g, dt, 1, maxdim, maxdim_psi2, cutoff_mps, cutoff_mps2, krylovDim)
     psi_GD2, ens_GD2, ts2 = gradient_descent2 (1, H0, psi, g, step_size=dt, steps=1, maxdim=maxdim, cutoff=cutoff_mps, maxdim_psi2=maxdim_psi2, cutoff_psi2=cutoff_mps2, psi2_update_length=psi2_update_length)
     psi_GD2, ens_GD2, ts2 = gradient_descent2 (step_iter, H0, psi_GD2, g, step_size=dt, steps=steps, maxdim=maxdim, cutoff=cutoff_mps, maxdim_psi2=maxdim_psi2, cutoff_psi2=cutoff_mps2, psi2_update_length=psi2_update_length)
