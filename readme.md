@@ -49,7 +49,7 @@ To run it in the background (**Strongly recommended to run all the program in th
 nohup python -O GP_vortex_GD.py &
 ```
 
-Important physical parameters in `GP_vortex_GD.py`:
+Important physical parameters in `GP_vortex_GD.py`, `GP_vortex_exact.py`, `GP_vortex_fit.py`, and `GP_vortex_SRC.py`:
 ```python
 N = 8                     # Number of qubits in x and y directions
 x1, x2 = -6, 6            # Spatial domain boundaries
@@ -67,6 +67,13 @@ steps = 10                # Number of optimization steps
 step_iter = 5             # Interval to autosave output
 dt = dx**2 / 2            # Time displacement (any positive value for GD)
 ```
+
+The difference of `GP_vortex_GD.py`, `GP_vortex_exact.py`, `GP_vortex_fit.py`, and `GP_vortex_SRC.py`.
+
+`GP_vortex_GD.py` : Directlly run the gradient descent.
+`GP_vortex_exact.py` : One(or more) step TDVP can increase the bond dimension of the initial state by exactly constructing the \(|\psi(x,t)|^2\). This is feasible only for small \(N_{qubit}\) = 8~12.
+`GP_vortex_SRC.py` : One(or more) step TDVP can increase the bond dimension of the initial state by [SRC](https://arxiv.org/pdf/2504.06475) algorithm constructing the \(|\psi(x,t)|^2\). This is feasible only for middle \(N_{qubit}\) = 12 ~ 17.
+`GP_vortex_fit.py` : One(or more) step TDVP can increase the bond dimension of the initial state by fit(variational) constructing the \(|\psi(x,t)|^2\). This is feasible only for large \(N_{qubit}\) = 17 to more.
 
 After the simulation completes, run:
 ```
