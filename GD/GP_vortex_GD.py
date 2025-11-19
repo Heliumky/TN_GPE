@@ -130,8 +130,8 @@ if __name__ == '__main__':
     absSqr = np.vectorize(absSqr)
 
     # Initial MPS
-    psi = get_init_state (N, x1, x2, maxdim=maxdim)
-    #psi = get_init_rand_state (N, x1, x2, maxdim=maxdim, seed = 15, dtype=np.complex128)
+    #psi = get_init_state (N, x1, x2, maxdim=maxdim)
+    psi = get_init_rand_state (N, x1, x2, maxdim=maxdim, seed = 15, dtype=np.complex128)
     #psi = get_init_other_state (N, x1, x2, maxdim, other)
     print('Initial psi dim, before compression:',npmps.MPS_dims(psi))
     psi = npmps.svd_compress_MPS (psi, cutoff=1e-30)

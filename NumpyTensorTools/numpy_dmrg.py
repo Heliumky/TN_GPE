@@ -1,5 +1,5 @@
 import os, sys, copy
-os.environ["OMP_NUM_THREADS"] = "1"
+os.environ["OMP_NUM_THREADS"] = "14"
 import numpy as np
 import scipy as sp
 from ncon import ncon
@@ -200,7 +200,7 @@ class LR_envir_tensors_mps:
     # Left or right environment tensor = (up, mid, down)
     def update_LR (self, mps1, mps2, centerL, centerR=None):
         # Set dtype
-        dtype = max(mps1[0].dtype, mps2[0].dtype, mpo[0].dtype)
+        dtype = max(mps1[0].dtype, mps2[0].dtype)
         if dtype != self.dtype:
             for i in self.LR:
                 if self.LR[i] != None:
@@ -902,3 +902,230 @@ def fit_apply_MPO_new (mpo, mps, fitmps, numCenter, nsweep=1, maxdim=100000000, 
     else:
         return fitmps
 
+def nl_dmrg (numCenter, psi, g, H, maxdims, cutoff, krylovDim=20, verbose=False):
+    # Check the MPS and the MPO
+    assert (len(psi) == len(H))
+    npmps.check_MPO_links (H)
+    npmps.check_MPS_links (psi)
+    # Set dtype
+    dtype = max(psi[0].dtype, H[0].dtype)
+
+    psi = copy.copy(psi)
+
+    # Define the links to update for a sweep
+    # First do a left-to-right and then a right-to-left sweep
+    Nsites = len(psi)
+    ranges = get_sweeping_sites (Nsites, numCenter)
+
+    # Get the environment tensors
+    LR_linear = LR_envir_tensors_mpo (Nsites, dtype)
+    LR_nonlinear = LR_envir_tensors_mps (Nsites, psi, psi, dtype)
+    
+    # 初始化环境张量
+    LR_linear.update_LR (psi, psi, H, 0)
+    LR_nonlinear.update_LR (psi, psi, 0)
+
+    ens, terrs = [], []
+    N_update = len(ranges[0]) + len(ranges[1])
+    
+    for k in range(len(maxdims)):                                                            # For each sweep
+        maxdim = maxdims[k]                                                                     # Read bond dimension
+        terr = 0.
+        for lr in [0,1]:
+            for p in ranges[lr]:
+                #
+                #         2                   2      3
+                #         |                   |______|
+                #    1 ---O--- 3   or   1 ---(________)--- 4
+                phi = get_eff_psi (psi, p, numCenter)
+                dims = phi.shape
+                phi = phi.reshape(-1)
+
+                # Update the environment tensors
+                if numCenter == 2:
+                    LR_linear.update_LR (psi, psi, H, p, p+1)
+                    LR_nonlinear.update_LR (psi, psi, p, p+1)
+                elif numCenter == 1:
+                    LR_linear.update_LR (psi, psi, H, p)
+                    LR_nonlinear.update_LR (psi, psi, p)
+
+                # Define the effective Hamiltonian - 现在包含非线性项
+                effH_linear = get_eff_H (LR_linear, H, p, numCenter)
+                effH_nonlinear = get_eff_H_nonlinear (LR_nonlinear, psi, p, numCenter, g)
+                
+                # 组合线性和非线性哈密顿量
+                effH = CombinedEffectiveHamiltonian(effH_linear, effH_nonlinear)
+
+                # Find the ground state for the current bond
+                en, phi = lanczos.lanczos_ground_state (effH, phi, k=krylovDim, dtype=dtype)
+                phi = phi.reshape(dims)
+                phi = phi / np.linalg.norm(phi)
+
+                # Update tensors
+                toRight = (lr==0)
+                if numCenter == 2:
+                    psi[p], psi[p+1], err = npmps.truncate_svd2 (phi, rowrank=2, toRight=toRight, maxdim=maxdim, cutoff=cutoff)
+                    terr += err
+                    LR_linear.delete(p)
+                    LR_linear.delete(p+1)
+                    LR_nonlinear.delete(p)
+                    LR_nonlinear.delete(p+1)
+                elif numCenter == 1:
+                    psi[p] = phi
+                    psi = orthogonalize_MPS_tensor (psi, p, toRight, maxdim=maxdim, cutoff=cutoff)
+                    LR_linear.delete(p)
+                    LR_nonlinear.delete(p)
+                else:
+                    raise Exception
+                
+                # 更新非线性项的环境张量，因为psi已经改变
+                if numCenter == 2:
+                    LR_nonlinear.update_LR (psi, psi, p, p+1)
+                elif numCenter == 1:
+                    LR_nonlinear.update_LR (psi, psi, p)
+
+        if verbose:
+            print('Sweep',k,', maxdim='+str(maxdim),', MPS dim='+str(max(npmps.MPS_dims(psi))))
+            print('\t','energy =',en, terr)
+
+        ens.append(en);
+        terrs.append (terr/N_update)
+    return psi, ens, terrs
+
+
+class CombinedEffectiveHamiltonian(sp.sparse.linalg.LinearOperator):
+    """组合线性和非线性有效哈密顿量"""
+    def __init__(self, effH_linear, effH_nonlinear):
+        self.effH_linear = effH_linear
+        self.effH_nonlinear = effH_nonlinear
+        self.shape = effH_linear.shape
+        self.dtype = effH_linear.dtype
+        self.vshape = effH_linear.vshape if hasattr(effH_linear, 'vshape') else None
+
+    def _matvec(self, v):
+        # H|v⟩ = (H_linear + g|ψ⟩⟨ψ|)|v⟩ = H_linear|v⟩ + g⟨ψ|v⟩|ψ⟩
+        linear_part = self.effH_linear._matvec(v)
+        nonlinear_part = self.effH_nonlinear._matvec(v)
+        
+        # 确保两个部分形状一致
+        if linear_part.shape != nonlinear_part.shape:
+            linear_part = linear_part.reshape(-1)
+            nonlinear_part = nonlinear_part.reshape(-1)
+            
+        return linear_part + nonlinear_part
+
+
+def get_eff_H_nonlinear(LR_nonlinear, psi, p, numCenter, g):
+    """构建非线性项 g|ψ⟩⟨ψ| 的有效哈密顿量"""
+    if numCenter == 2:
+        return eff_Hamilt_nonlinear_2sites(LR_nonlinear[p-1], psi[p], psi[p+1], LR_nonlinear[p+2], g)
+    elif numCenter == 1:
+        return eff_Hamilt_nonlinear_1site(LR_nonlinear[p-1], psi[p], LR_nonlinear[p+1], g)
+    elif numCenter == 0:
+        return eff_Hamilt_nonlinear_0site(LR_nonlinear[p-1], LR_nonlinear[p], g)
+
+
+class eff_Hamilt_nonlinear_2sites(sp.sparse.linalg.LinearOperator):
+    """两站点非线性有效哈密顿量 g|ψ⟩⟨ψ|"""
+    def __init__(self, L, A1, A2, R, g):
+        self.L = L
+        self.R = R
+        self.A1 = A1
+        self.A2 = A2
+        self.g = g
+
+        dim = L.shape[0] * A1.shape[1] * A2.shape[1] * R.shape[0]
+        self.shape = (dim, dim)
+        self.dtype = L.dtype
+        self.vshape = (L.shape[0], A1.shape[1], A2.shape[1], R.shape[0])
+        
+        # 预计算 |ψ⟩ 在当前两个站点上的表示
+        self.psi_local = self._get_local_psi()
+
+    def _get_local_psi(self):
+        """获取当前两个站点的局部波函数"""
+        #        -2    -3
+        #         |  1  |
+        #   -1 ---A1---A2--- -4
+        return ncon((self.A1, self.A2), ((-1, -2, 1), (1, -3, -4)))
+
+    def apply(self, v):
+        """计算 g|ψ⟩⟨ψ|v⟩"""
+        # 确保v是正确形状
+        v_reshaped = v.reshape(self.vshape)
+        
+        # 计算 ⟨ψ|v⟩
+        overlap = ncon((np.conj(self.psi_local), v_reshaped), 
+                      ((1, 2, 3, 4), (1, 2, 3, 4)))
+        
+        # 返回 g⟨ψ|v⟩|ψ⟩
+        return self.g * overlap * self.psi_local.reshape(-1)
+
+    def _matvec(self, v):
+        # 确保返回一维向量
+        result = self.apply(v)
+        return result.reshape(-1) if hasattr(result, 'reshape') else result
+
+
+class eff_Hamilt_nonlinear_1site(sp.sparse.linalg.LinearOperator):
+    """单站点非线性有效哈密顿量 g|ψ⟩⟨ψ|"""
+    def __init__(self, L, A, R, g):
+        self.L = L
+        self.R = R
+        self.A = A
+        self.g = g
+        self.dtype = L.dtype
+        self.vshape = (L.shape[0], A.shape[1], R.shape[0])
+        dim = np.prod(self.vshape)
+        self.shape = (dim, dim)
+        
+        # 预计算 |ψ⟩ 在当前站点上的表示
+        self.psi_local = A  # 对于单站点，就是A本身
+
+    def apply(self, v):
+        """计算 g|ψ⟩⟨ψ|v⟩"""
+        # 确保v是正确形状
+        v_reshaped = v.reshape(self.vshape)
+        
+        # 计算 ⟨ψ|v⟩
+        overlap = ncon((np.conj(self.psi_local), v_reshaped), 
+                      ((1, 2, 3), (1, 2, 3)))
+        
+        # 返回 g⟨ψ|v⟩|ψ⟩
+        return self.g * overlap * self.psi_local.reshape(-1)
+
+    def _matvec(self, v):
+        # 确保返回一维向量
+        result = self.apply(v)
+        return result.reshape(-1) if hasattr(result, 'reshape') else result
+
+class eff_Hamilt_nonlinear_0site(sp.sparse.linalg.LinearOperator):
+    """零站点非线性有效哈密顿量 g|ψ⟩⟨ψ|"""
+    def __init__(self, L, R, g):
+        self.L = L
+        self.R = R
+        self.g = g
+        self.dtype = L.dtype
+        self.vshape = (L.shape[0], R.shape[0])
+        dim = np.prod(self.vshape)
+        self.shape = (dim, dim)
+        
+        # 对于零站点情况，|ψ⟩在当前位置的表示
+        # 这里需要根据实际实现调整，可能需要从环境张量中获取
+        self.psi_local = np.ones((L.shape[0], R.shape[0]))
+
+    def apply(self, v):
+        """计算 g|ψ⟩⟨ψ|v⟩"""
+        # 确保v是正确形状
+        v_reshaped = v.reshape(self.vshape)
+        
+        # 计算 ⟨ψ|v⟩
+        overlap = np.sum(np.conj(self.psi_local) * v_reshaped)
+        
+        # 返回 g⟨ψ|v⟩|ψ⟩
+        return self.g * overlap * self.psi_local.reshape(-1)
+
+    def _matvec(self, v):
+        # 确保返回一维向量
+        result = self.apply(v)
+        return result.reshape(-1) if hasattr(result, 'reshape') else result

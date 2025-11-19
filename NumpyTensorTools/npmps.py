@@ -4,6 +4,125 @@ import sys, copy
 import scipy as sp
 import plot_utility as pltut
 
+def SRC(mpo, mps, max_bond_dim=None, oversampling=0, verbose=False):
+    """
+    Successive Randomized Compression (SRC) algorithm for MPO-MPS product
+    Based on the paper "Successive randomized compression: A randomized algorithm for the compressed MPO-MPS product"
+    
+    Args:
+        mpo: Matrix Product Operator (list of tensors)
+        mps: Matrix Product State (list of tensors)
+        max_bond_dim: Maximum bond dimension for output MPS
+        oversampling: Oversampling parameter for randomized algorithm
+        verbose: Whether to print progress information
+        
+    Returns:
+        Compressed MPS representing MPO applied to MPS
+    """
+    # Check inputs
+    check_MPO_links(mpo)
+    check_MPS_links(mps)
+    mpo = copy.copy(mpo)
+    mps = copy.copy(mps)
+    n = len(mps)
+    d = mps[0].shape[1]  # Physical dimension
+    
+    if max_bond_dim is None:
+        max_bond_dim = mps[0].shape[0] * mpo[0].shape[0]  # Default to maximum possible value
+    
+    # Working bond dimension (with oversampling)
+    chi_work = min(max_bond_dim + oversampling, d * max_bond_dim)
+    
+    if verbose:
+        print(f"SRC: n={n}, d={d}, max_bond_dim={max_bond_dim}, chi_work={chi_work}")
+    
+    # Step 1: Generate random matrices
+    # Generate Omega^{(1)}, ..., Omega^{(n-1)}, each of size d × chi_work
+    Omega_list = []
+    for i in range(n-1):
+        Omega = np.random.randn(d, chi_work)
+        Omega_list.append(Omega)
+    
+    # Step 2: Compute intermediate tensors C^{(1)}, ..., C^{(n-1)}
+    C_tensors = [None] * (n-1)
+    
+    # Compute C^{(1)}
+    # C^{(1)}(a,b,c) = sum_{d,e} Omega^{(1)}(a,d) * H^{(1)}(d,b,e) * psi^{(1)}(e,c)
+    mpo[0] = np.squeeze(mpo[0], axis=0)
+    mps[0] = np.squeeze(mps[0], axis=0)
+    C1 = ncon([Omega_list[0], mpo[0], mps[0]], 
+                [(1, -1), (1, 2, -2), (2, -3)])
+    C_tensors[0] = C1
+    
+    # Compute C^{(2)} to C^{(n-1)}
+    for i in range(1, n-1):
+        # C^{(i)}(a,b,c) = sum_{d,e,f,g} C^{(i-1)}(a,d,e) * Omega^{(i)}(a,f) * 
+        #                   H^{(i)}(d,f,b,g) * psi^{(i)}(e,g,c)
+        C_prev = C_tensors[i-1]
+        C_current = ncon([C_prev, Omega_list[i], mpo[i], mps[i]], 
+                        [(-1, 1, 2), (3, -2), (1, 3, 4, -3), (2, 4, -4)])
+        id = C_current.shape[0]
+        idx = np.arange(id)
+        C_tensors[i] = C_current[idx, idx, :, :]
+    
+    # Step 3: Process sites from right to left
+    result_mps = [None] * n
+    S_tensors = [None] * (n+1)  # S^{(j)} tensors
+    
+    # Process last site (n)
+    # Compute Y^{(n)} = (H|ψ⟩) · Ω^{(1:n-1)}
+    mpo[n-1] = np.squeeze(mpo[n-1], axis=-1)
+    mps[n-1] = np.squeeze(mps[n-1], axis=-1)
+    Y_n = ncon([C_tensors[n-2], mpo[n-1], mps[n-1]], 
+                [(-1, 1, 2), (1, -2, 3), (2, 3)])
+    Y_n = Y_n.transpose(1, 0)  # (col, row)
+    # QR decomposition: Y^{(n)} = η^{(n)} · R^{(n)}
+    Q_n, R_n = np.linalg.qr(Y_n, mode='reduced')
+    # Form the tensor for the last site
+    Q_n = Q_n.transpose(1, 0)
+    result_mps[n-1] = Q_n 
+    # Compute S^{(n)}
+    S_n = ncon([np.conj(result_mps[n-1]), mpo[n-1], mps[n-1]], 
+                [(-1, 1), (-2, 1, 2), (2, -3)])
+    S_tensors[n] = S_n
+
+    
+    # Process sites n-1 to 2
+    for j in range(n-1, 1, -1):  # j = n-1, n-2, ..., 2
+        if verbose:
+            print(f"Processing site {j}")
+        
+        # Compute Y^{(j)}
+        # Y^{(j)} = sum C^{(j-1)} * H^{(j)} * psi^{(j)} * S^{(j+1)}
+        Y_j = ncon([C_tensors[j-2], mpo[j-1], mps[j-1], S_tensors[j+1]], 
+                    [(-1, 1, 2), (1, -2, 3, 4), (2, 3, 5), (-3, 4, 5)])
+        Y_j = Y_j.transpose(2, 1, 0)
+        Y_j = Y_j.reshape(-1, chi_work)
+        # QR decomposition
+        Q_j, R_j = np.linalg.qr(Y_j, mode='reduced')
+        # Form the tensor for the j-th site
+        Q_j = Q_j.reshape(-1, d, Q_j.shape[1]).transpose(2, 1, 0)
+        result_mps[j-1] = Q_j
+        
+        # Compute S^{(j)}
+
+        # Sj is B
+        S_j = ncon([np.conj(result_mps[j-1]), mpo[j-1], mps[j-1], S_tensors[j+1]], 
+                    [(-1, 1, 2), (-2, 1, 4, 5), (-3, 4, 6), (2, 5, 6)])
+        S_tensors[j] = S_j
+    
+    # Step 4: Process first site
+    # Compute η^{(1)}
+    eta_1 = ncon([mpo[0], mps[0], S_tensors[2]], 
+                [(-1, 2, 3), (2, 4), (-2, 3, 4)])
+    result_mps[0] = eta_1.reshape(1, d, -1)
+    result_mps[-1] = result_mps[-1].reshape(-1, d, 1)
+        
+    if verbose:
+        bond_dims = [t.shape[2] for t in result_mps]
+        print(f"SRC completed. Final bond dimensions: {bond_dims}")
+        
+    return result_mps
 
 def inds_to_num (inds, dx, shift):
     bstr = ''
@@ -34,7 +153,7 @@ def dataarr_to_mps(data_arr, n_sites, phy_dim, cutoff=0.0):
     # print(data_arr)
     # che_matrix = data_arr.reshape(int(2**N),int(2**N)).T
     # for i in range(0,2**n_sites):
-    #     inds = format(i, '016b')  # 将整数 i 格式化为四位二进制字符串
+    #     inds = format(i, '016b')  
     #     print(inds)
     #     xinds, yinds = inds[:N], inds[N:]
     #     x = inds_to_num (xinds, dx=1, shift = 0)
@@ -393,7 +512,7 @@ def normalize_MPS (mps):
     return mps
 
 def MPS_dims (mps):
-    dims = [mps[i].shape[2] for i in range(len(mps)-1)]
+    dims = [mps[i].shape[2] for i in range(len(mps))]
     return dims
 
 def change_dtype (mpso, dtype):
@@ -422,7 +541,7 @@ def check_MPO_links (mpo):
             assert mpo[i].dtype == mpo[0].dtype
 
 def MPO_dims (mpo):
-    dims = [mpo[i].shape[3] for i in range(len(mpo)-1)]
+    dims = [mpo[i].shape[3] for i in range(len(mpo))]
     return dims
 
 def exact_apply_MPO (mpo, mps):
@@ -661,8 +780,8 @@ def get_H_2D (H_1D):
 
 def get_H_3D (H_1D):
     N = len(H_1D)
-    H_I = npmps.identity_MPO (N, 2)
-    H_2I = npmps.identity_MPO (2*N, 2)
+    H_I = identity_MPO (N, 2)
+    H_2I = identity_MPO (2*N, 2)
     H1 = direct_product_2MPO (H_1D, H_2I)
     H2 = direct_product_2MPO (H_I, H_1D)
     H2 = direct_product_2MPO (H2, H_I)

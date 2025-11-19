@@ -56,7 +56,7 @@ def kill_site_2D(psi, maxdim,dtype = np.complex128):
     kill_psi[0] = ncon ([left_ten,kill_psi[0]], ((-1,1), (1,-2,-3)))
     kill_psi[-1]=ncon ([right_ten,kill_psi[-1]], ((1,-3), (-1,-2,1)))
     npmps.check_MPS_links(kill_psi)
-    kill_psi = npmps.compress_MPS (kill_psi, maxdim=maxdim)
+    #kill_psi = npmps.compress_MPS (kill_psi, maxdim=maxdim)
     return kill_psi
 
 

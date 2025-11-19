@@ -23,6 +23,7 @@ The following Python packages are required:
 - matplotlib  
 - ncon  
 - pickle
+- jax
 
 Install them using pip:
 ```

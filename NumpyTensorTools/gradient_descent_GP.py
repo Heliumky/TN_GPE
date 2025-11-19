@@ -459,7 +459,7 @@ def gradient_descent_GP_MPS_new(save_iter, nsweep, mps, mpo, g, step_size, niter
         ens.append(en)
         psi2_dim.append(max(ds2))
         df_arr.append(df)
-        f_arr.append(f)
+        f_arr.append(f/2)
 
         # 
         if (s + 1) % save_iter == 0:

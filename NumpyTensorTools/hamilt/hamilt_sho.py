@@ -28,11 +28,6 @@ def make_H (N, x1, x2, hbar=1, m=1, omega=1):
 
     return H
 
-def xsq_measure(N,x1,x2):
-    x_mea = poly.make_xsqr_mpo (N, x1, x2)
-    x_mea = npmps.svd_compress_MPO (x_mea, cutoff=1e-12)
-    return x_mea
-
 def plot_GS_exact (x1, x2, ax, hbar=1, m=1, omega=1, **args):
     def gs (x):
         return (m*omega/(np.pi*hbar))**0.25 * np.exp(-m*omega*x*x*0.5/hbar)
