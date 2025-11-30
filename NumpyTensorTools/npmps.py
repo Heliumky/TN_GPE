@@ -83,7 +83,7 @@ def SRC(mpo, mps, max_bond_dim=None, oversampling=0, verbose=False):
     result_mps[n-1] = Q_n 
     # Compute S^{(n)}
     S_n = ncon([np.conj(result_mps[n-1]), mpo[n-1], mps[n-1]], 
-                [(-1, 1), (-2, 1, 2), (2, -3)])
+                [(-1, 1), (-2, 1, 2), (-3, 2)])
     S_tensors[n] = S_n
 
     
