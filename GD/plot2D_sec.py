@@ -16,11 +16,13 @@ from matplotlib.ticker import MultipleLocator, MaxNLocator
 plt.rc('text', usetex=True)
 plt.rc('font', family='serif')
 
+# Add this before any plotting commands
+# plt.rcParams['text.usetex'] = False
 
-steps = 1000 
+
+steps = 1400 
 #input_mps_path = f"TDVP_step_{steps}.pkl"
 #input_mps_path = f"tci_initial.pkl"
-#input_mps_path = f"tci_initial_comp.pkl"
 input_mps_path = f"GD2_mps_step_{steps}.pkl"
 with open(input_mps_path, 'rb') as file:
     data = pickle.load(file)
@@ -29,7 +31,7 @@ mps = data
 x1 = -21
 x2 = 21
 #mps = qtt.normalize_MPS_by_integral (mps, x1, x2, Dim=2)
-for i in range(9):
+for i in range(4):
     mps = qtt.kill_site_2D(mps, 80,dtype = np.complex128)
 
 mps = qtt.normalize_MPS_by_integral (mps, x1, x2, Dim=2)
@@ -45,28 +47,21 @@ xs = pltut.bin_to_dec_list (bxs, rescale, shift)
 ys = pltut.bin_to_dec_list (bys, rescale, shift)
 X, Y = np.meshgrid (xs, ys)
 
-#result = get_2D_mesh_eles_mps(mps, bxs, bys, mode='low_memory')
-
-# 对于中等问题（10-100万点），使用平衡模式
-#result = get_2D_mesh_eles_mps(mps, bxs, bys, mode='balanced', batch_size=128)
-
-# 让小问题（<10万点），使用优化模式
-#result = get_2D_mesh_eles_mps(mps, bxs, bys, mode='optimized', batch_size=256)
-
-# 或者让系统自动选择
-#result = get_2D_mesh_eles_mps(mps, bxs, bys, mode='auto')
-#get_2D_mesh_eles_mps(mps, bxs, bys, mode='balanced', batch_size=128)
-Z = pltut.get_2D_mesh_eles_mps(mps, bxs, bys, batch_size=8192)
+Z = pltut.get_2D_mesh_eles_mps(mps, bxs, bys, batch_size=2**15)
 # Flatten arrays into columns
 X_flat = X.flatten()
 Y_flat = Y.flatten()
 Z_flat = Z.flatten()
 
-# Stack them: each row = [x, y, z]
-data_to_save = np.column_stack((X_flat, Y_flat, Z_flat))
+# Split into real and imaginary parts
+Z_real = np.real(Z_flat)
+Z_imag = np.imag(Z_flat)
 
-# Save to .dat file (space-separated, MATLAB compatible)
-np.savetxt("psi2_2D.dat", data_to_save, fmt="%.8e", delimiter="\t", header="x\ty\t|psi|^2")
+# Stack into 4 columns: x, y, Re(psi), Im(psi)
+#data_to_save = np.column_stack((X_flat, Y_flat, Z_real, Z_imag))
+data_to_save = np.column_stack((Z_real, Z_imag))
+# Save to .dat (tab-separated, MATLAB-friendly)
+np.savetxt("psi2D_complex.txt", data_to_save, fmt="%.10e", delimiter="\t")
 Z = np.abs(Z)**2
 fig, ax = plt.subplots()
 ax.relim()
@@ -107,4 +102,3 @@ ax2.set_xlim(x1, x2)
 ps.text(ax2, x=0.1, y=0.9, t="(b)", fontsize=20)
 #ps.set(ax2)
 plt.savefig(f"{input_mps_path}.pdf", bbox_inches='tight')
-
