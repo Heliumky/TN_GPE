@@ -1,5 +1,5 @@
 import os, sys 
-sys.path.append('/home/jerrychen/Desktop/GP_project/xfac/build/python/')
+sys.path.append('/home/jerrychen/xfac/build/python/')
 #sys.path.append('/home/chiamin/project/2023/qtt/JhengWei/INSTALL/xfac/build/python/')
 import xfacpy
 import numpy as np
@@ -34,8 +34,9 @@ def fitfun (inds, seed = 15):
 
 def xfac_to_npmps (mpsX, nsite):
   mps = [None for i in range(nsite)]
-  for it in range(nsite):
-    mps[it] = mpsX.get(it)
+  #for it in range(nsite):
+  #  mps[it] = mpsX.get(it)
+  mps = mpsX.core
   return mps 
 
 def get_init_state (N, x1, x2, maxdim):
