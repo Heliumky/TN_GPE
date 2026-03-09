@@ -1,0 +1,1081 @@
+nohup: ignoring input
+
+Method = 
+
+  struct with fields:
+
+           Computation: 'Ground'
+           Ncomponents: 1
+                  Type: 'BEFD'
+                Deltat: 0.0100
+             Stop_time: []
+             Stop_crit: {'MaxNorm'  [1.0000e-04]}
+              Max_iter: 800
+               Precond: "None"
+                Output: 1
+             Splitting: 'Strang'
+           Solver_BESP: 0
+             Solver_FD: 0
+         Iterative_tol: 1.0000e-09
+       Iterative_maxit: 1000
+    EvolutionCriterion: 2.0000e-04
+            Iterations: 0
+         Normalization: 'Multi'
+            NParticles: 1
+
+Reading user-defined initial wave function from text file(s)...
+  Loading wave_real_imag.txt ...
+----------------------------------------
+Iteration 10 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000020472
+x-radius mean square: 1.86532635067091
+y-radius mean square: 1.90339684398620
+Energy:  2.50444779672673
+Chemical potential:  3.60143200451927
+Angular momentum:  4.79219715399416
+Stopping criterion (stops at 1.000000e-06):  9.197754e-04
+Energy evolution:  -1.256553e-03
+----------------------------------------
+CPU time:    130.32
+----------------------------------------
+Iteration 20 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000027942
+x-radius mean square: 1.88498251243368
+y-radius mean square: 1.91737745765240
+Energy:  2.49423779497106
+Chemical potential:  3.57616753707512
+Angular momentum:  4.90757877735341
+Stopping criterion (stops at 1.000000e-06):  8.027996e-04
+Energy evolution:  -8.638742e-04
+----------------------------------------
+CPU time:    216.31
+----------------------------------------
+Iteration 30 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000029931
+x-radius mean square: 1.89923162573544
+y-radius mean square: 1.92738731109077
+Energy:  2.48694644669610
+Chemical potential:  3.55844102400239
+Angular momentum:  4.99896503102249
+Stopping criterion (stops at 1.000000e-06):  7.095055e-04
+Energy evolution:  -6.350965e-04
+----------------------------------------
+CPU time:    301.56
+----------------------------------------
+Iteration 40 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000030142
+x-radius mean square: 1.90989930371299
+y-radius mean square: 1.93480083125429
+Energy:  2.48146002364240
+Chemical potential:  3.54547287326987
+Angular momentum:  5.07366949783290
+Stopping criterion (stops at 1.000000e-06):  6.263479e-04
+Energy evolution:  -4.866389e-04
+----------------------------------------
+CPU time:    384.39
+----------------------------------------
+Iteration 50 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000029892
+x-radius mean square: 1.91813948689815
+y-radius mean square: 1.94048111050175
+Energy:  2.47718744032799
+Chemical potential:  3.53566204423453
+Angular momentum:  5.13635426819614
+Stopping criterion (stops at 1.000000e-06):  5.520341e-04
+Energy evolution:  -3.840084e-04
+----------------------------------------
+CPU time:    462.74
+----------------------------------------
+Iteration 60 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000029596
+x-radius mean square: 1.92470370689726
+y-radius mean square: 1.94498923505391
+Energy:  2.47377081845718
+Chemical potential:  3.52800910598506
+Angular momentum:  5.19011666155028
+Stopping criterion (stops at 1.000000e-06):  4.854873e-04
+Energy evolution:  -3.105786e-04
+----------------------------------------
+CPU time:    540.05
+----------------------------------------
+Iteration 70 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000029383
+x-radius mean square: 1.93009446576587
+y-radius mean square: 1.94870035442939
+Energy:  2.47097231529121
+Chemical potential:  3.52185321782050
+Angular momentum:  5.23710087383922
+Stopping criterion (stops at 1.000000e-06):  4.265666e-04
+Energy evolution:  -2.572397e-04
+----------------------------------------
+CPU time:    615.18
+----------------------------------------
+Iteration 80 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000029279
+x-radius mean square: 1.93465582899843
+y-radius mean square: 1.95187156735022
+Energy:  2.46862349792720
+Chemical potential:  3.51673863484626
+Angular momentum:  5.27885304246335
+Stopping criterion (stops at 1.000000e-06):  3.742017e-04
+Energy evolution:  -2.184633e-04
+----------------------------------------
+CPU time:    690.24
+----------------------------------------
+Iteration 90 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000029270
+x-radius mean square: 1.93862874037776
+y-radius mean square: 1.95468331667709
+Energy:  2.46659980164685
+Chemical potential:  3.51234070544494
+Angular momentum:  5.31653325285468
+Stopping criterion (stops at 1.000000e-06):  3.281356e-04
+Energy evolution:  -1.906334e-04
+----------------------------------------
+CPU time:    765.11
+----------------------------------------
+Iteration 100 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000029331
+x-radius mean square: 1.94218579863730
+y-radius mean square: 1.95726548923788
+Energy:  2.46480616647357
+Chemical potential:  3.50842174638501
+Angular momentum:  5.35104575893353
+Stopping criterion (stops at 1.000000e-06):  2.874719e-04
+Energy evolution:  -1.712634e-04
+----------------------------------------
+CPU time:    838.94
+----------------------------------------
+Iteration 110 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000029435
+x-radius mean square: 1.94545369073110
+y-radius mean square: 1.95971433458367
+Energy:  2.46316816866201
+Chemical potential:  3.50480312785188
+Angular momentum:  5.38312143065132
+Stopping criterion (stops at 1.000000e-06):  2.516604e-04
+Energy evolution:  -1.585918e-04
+----------------------------------------
+CPU time:    911.12
+----------------------------------------
+Iteration 120 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000029561
+x-radius mean square: 1.94852799881856
+y-radius mean square: 1.96210369967611
+Energy:  2.46162611153911
+Chemical potential:  3.50134675135935
+Angular momentum:  5.41337174497251
+Stopping criterion (stops at 1.000000e-06):  2.201464e-04
+Energy evolution:  -1.513564e-04
+----------------------------------------
+CPU time:    983.12
+----------------------------------------
+Iteration 130 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000029690
+x-radius mean square: 1.95148318527646
+y-radius mean square: 1.96449265952140
+Energy:  2.46013084569919
+Chemical potential:  3.49794227245791
+Angular momentum:  5.44232552757575
+Stopping criterion (stops at 1.000000e-06):  1.923834e-04
+Energy evolution:  -1.486561e-04
+----------------------------------------
+CPU time:   1055.66
+----------------------------------------
+Iteration 140 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000029813
+x-radius mean square: 1.95437946938414
+y-radius mean square: 1.96693081998761
+Energy:  2.45864067253833
+Chemical potential:  3.49449799154957
+Angular momentum:  5.47045507076495
+Stopping criterion (stops at 1.000000e-06):  2.037944e-04
+Energy evolution:  -1.498625e-04
+----------------------------------------
+CPU time:   1127.91
+----------------------------------------
+Iteration 150 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000029920
+x-radius mean square: 1.95726766915476
+y-radius mean square: 1.96946209597174
+Energy:  2.45711896643129
+Chemical potential:  3.49093416741645
+Angular momentum:  5.49819561966658
+Stopping criterion (stops at 1.000000e-06):  2.166412e-04
+Energy evolution:  -1.545600e-04
+----------------------------------------
+CPU time:   1200.61
+----------------------------------------
+Iteration 160 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000030007
+x-radius mean square: 1.96019269422873
+y-radius mean square: 1.97212747890049
+Energy:  2.45553229751403
+Chemical potential:  3.48717797750999
+Angular momentum:  5.52596066672804
+Stopping criterion (stops at 1.000000e-06):  2.305601e-04
+Energy evolution:  -1.625022e-04
+----------------------------------------
+CPU time:   1272.22
+----------------------------------------
+Iteration 170 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000030072
+x-radius mean square: 1.96319613378459
+y-radius mean square: 1.97496712380217
+Energy:  2.45384892065937
+Chemical potential:  3.48315963260179
+Angular momentum:  5.55415455107348
+Stopping criterion (stops at 1.000000e-06):  2.456343e-04
+Energy evolution:  -1.735800e-04
+----------------------------------------
+CPU time:   1344.81
+----------------------------------------
+Iteration 180 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000030114
+x-radius mean square: 1.96631822624364
+y-radius mean square: 1.97802196300481
+Energy:  2.45203754994257
+Chemical potential:  3.47880933929073
+Angular momentum:  5.58318325166640
+Stopping criterion (stops at 1.000000e-06):  2.619836e-04
+Energy evolution:  -1.877955e-04
+----------------------------------------
+CPU time:   1418.08
+----------------------------------------
+Iteration 190 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000030134
+x-radius mean square: 1.96959939491801
+y-radius mean square: 1.98133496946161
+Energy:  2.45006637673546
+Chemical potential:  3.47405493422963
+Angular momentum:  5.61346385512957
+Stopping criterion (stops at 1.000000e-06):  2.796167e-04
+Energy evolution:  -2.052385e-04
+----------------------------------------
+CPU time:   1489.13
+----------------------------------------
+Iteration 200 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000030131
+x-radius mean square: 1.97308145715216
+y-radius mean square: 1.98495212543196
+Energy:  2.44790232259386
+Chemical potential:  3.46882011946054
+Angular momentum:  5.64543284672574
+Stopping criterion (stops at 1.000000e-06):  2.985987e-04
+Energy evolution:  -2.260628e-04
+----------------------------------------
+CPU time:   1559.11
+----------------------------------------
+Iteration 210 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000030107
+x-radius mean square: 1.97680855857488
+y-radius mean square: 1.98892309871909
+Energy:  2.44551054871408
+Chemical potential:  3.46302331796503
+Angular momentum:  5.67955308821726
+Stopping criterion (stops at 1.000000e-06):  3.188769e-04
+Energy evolution:  -2.504581e-04
+----------------------------------------
+CPU time:   1627.50
+----------------------------------------
+Iteration 220 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000030063
+x-radius mean square: 1.98082783567220
+y-radius mean square: 1.99330157872610
+Energy:  2.44285427399823
+Chemical potential:  3.45657725318457
+Angular momentum:  5.71631905647295
+Stopping criterion (stops at 1.000000e-06):  3.403529e-04
+Energy evolution:  -2.786164e-04
+----------------------------------------
+CPU time:   1698.05
+----------------------------------------
+Iteration 230 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000029998
+x-radius mean square: 1.98518976906292
+y-radius mean square: 1.99814518048083
+Energy:  2.43989498227021
+Chemical potential:  3.44938943238007
+Angular momentum:  5.75625962285067
+Stopping criterion (stops at 1.000000e-06):  3.629352e-04
+Energy evolution:  -3.106889e-04
+----------------------------------------
+CPU time:   1768.72
+----------------------------------------
+Iteration 240 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000029914
+x-radius mean square: 1.98994815008392
+y-radius mean square: 2.00351478301477
+Energy:  2.43659312311930
+Chemical potential:  3.44136377976355
+Angular momentum:  5.79993734550242
+Stopping criterion (stops at 1.000000e-06):  3.863539e-04
+Energy evolution:  -3.467309e-04
+----------------------------------------
+CPU time:   1835.93
+----------------------------------------
+Iteration 250 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000029810
+x-radius mean square: 1.99515955336081
+y-radius mean square: 2.00947314232438
+Energy:  2.43290942186321
+Chemical potential:  3.43240369855685
+Angular momentum:  5.84794298299495
+Stopping criterion (stops at 1.000000e-06):  4.103063e-04
+Energy evolution:  -3.866363e-04
+----------------------------------------
+CPU time:   1902.18
+----------------------------------------
+Iteration 260 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000029686
+x-radius mean square: 2.00088218688072
+y-radius mean square: 2.01608261322708
+Energy:  2.42880690214234
+Chemical potential:  3.42241682322837
+Angular momentum:  5.90088376655169
+Stopping criterion (stops at 1.000000e-06):  4.343283e-04
+Energy evolution:  -4.300624e-04
+----------------------------------------
+CPU time:   1969.52
+----------------------------------------
+Iteration 270 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000029542
+x-radius mean square: 2.00717399283866
+y-radius mean square: 2.02340184966415
+Energy:  2.42425367495404
+Chemical potential:  3.41132161593115
+Angular momentum:  5.95936401421387
+Stopping criterion (stops at 1.000000e-06):  4.579623e-04
+Energy evolution:  -4.763535e-04
+----------------------------------------
+CPU time:   2036.82
+----------------------------------------
+Iteration 280 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000029377
+x-radius mean square: 2.01408990751764
+y-radius mean square: 2.03148144566389
+Energy:  2.41922644695303
+Chemical potential:  3.39905573296182
+Angular momentum:  6.02395706810172
+Stopping criterion (stops at 1.000000e-06):  4.804095e-04
+Energy evolution:  -5.244751e-04
+----------------------------------------
+CPU time:   2106.51
+----------------------------------------
+Iteration 290 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000029191
+x-radius mean square: 2.02167826958478
+y-radius mean square: 2.04035864363387
+Energy:  2.41371454190742
+Chemical potential:  3.38558571932592
+Angular momentum:  6.09516842971021
+Stopping criterion (stops at 1.000000e-06):  5.011674e-04
+Energy evolution:  -5.729772e-04
+----------------------------------------
+CPU time:   2174.72
+----------------------------------------
+Iteration 300 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000028983
+x-radius mean square: 2.02997650224453
+y-radius mean square: 2.05005147349635
+Energy:  2.40772402343967
+Chemical potential:  3.37091710127166
+Angular momentum:  6.17339144104238
+Stopping criterion (stops at 1.000000e-06):  5.193496e-04
+Energy evolution:  -6.200096e-04
+----------------------------------------
+CPU time:   2245.33
+----------------------------------------
+Iteration 310 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000028755
+x-radius mean square: 2.03900637701985
+y-radius mean square: 2.06055296397193
+Energy:  2.40128129386113
+Chemical potential:  3.35510342782123
+Angular momentum:  6.25885883391733
+Stopping criterion (stops at 1.000000e-06):  5.342933e-04
+Energy evolution:  -6.634072e-04
+----------------------------------------
+CPU time:   2316.21
+----------------------------------------
+Iteration 320 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000028505
+x-radius mean square: 2.04876936914553
+y-radius mean square: 2.07182632119277
+Energy:  2.39443539392149
+Chemical potential:  3.33825242392590
+Angular momentum:  6.35159563124993
+Stopping criterion (stops at 1.000000e-06):  5.454567e-04
+Energy evolution:  -7.008561e-04
+----------------------------------------
+CPU time:   2389.42
+----------------------------------------
+Iteration 330 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000028237
+x-radius mean square: 2.05924278511819
+y-radius mean square: 2.08380210238359
+Energy:  2.38725823066341
+Chemical potential:  3.32052737058139
+Angular momentum:  6.45138064428166
+Stopping criterion (stops at 1.000000e-06):  5.523204e-04
+Energy evolution:  -7.301316e-04
+----------------------------------------
+CPU time:   2460.81
+----------------------------------------
+Iteration 340 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000027950
+x-radius mean square: 2.07037741041398
+y-radius mean square: 2.09637831822860
+Energy:  2.37984218740819
+Chemical potential:  3.30214230552803
+Angular momentum:  6.55772439887000
+Stopping criterion (stops at 1.000000e-06):  5.545636e-04
+Energy evolution:  -7.493728e-04
+----------------------------------------
+CPU time:   2532.86
+----------------------------------------
+Iteration 350 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000027649
+x-radius mean square: 2.08209733015159
+y-radius mean square: 2.10942402193027
+Energy:  2.37229502702448
+Chemical potential:  3.28335067411928
+Angular momentum:  6.66987008953240
+Stopping criterion (stops at 1.000000e-06):  5.524029e-04
+Energy evolution:  -7.573404e-04
+----------------------------------------
+CPU time:   2605.98
+----------------------------------------
+Iteration 360 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000027335
+x-radius mean square: 2.09430229275297
+y-radius mean square: 2.12278632252410
+Energy:  2.36473259205522
+Chemical potential:  3.26442845636964
+Angular momentum:  6.78682091404324
+Stopping criterion (stops at 1.000000e-06):  5.458346e-04
+Energy evolution:  -7.535980e-04
+----------------------------------------
+CPU time:   2678.70
+----------------------------------------
+Iteration 370 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000027013
+x-radius mean square: 2.10687256068133
+y-radius mean square: 2.13630004853663
+Energy:  2.35727034985577
+Chemical potential:  3.24565413188550
+Angular momentum:  6.90739245096066
+Stopping criterion (stops at 1.000000e-06):  5.354847e-04
+Energy evolution:  -7.385691e-04
+----------------------------------------
+CPU time:   2750.99
+----------------------------------------
+Iteration 380 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000026685
+x-radius mean square: 2.11967572659819
+y-radius mean square: 2.14979870444923
+Energy:  2.35001512804651
+Chemical potential:  3.22728864438121
+Angular momentum:  7.03028385500612
+Stopping criterion (stops at 1.000000e-06):  5.250388e-04
+Energy evolution:  -7.134562e-04
+----------------------------------------
+CPU time:   2824.25
+----------------------------------------
+Iteration 390 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000026356
+x-radius mean square: 2.13257460438045
+y-radius mean square: 2.16312510615263
+Energy:  2.34305831828918
+Chemical potential:  3.20955848025681
+Angular momentum:  7.15415805555442
+Stopping criterion (stops at 1.000000e-06):  5.128787e-04
+Energy evolution:  -6.800463e-04
+----------------------------------------
+CPU time:   2896.74
+----------------------------------------
+Iteration 400 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000026028
+x-radius mean square: 2.14543514111374
+y-radius mean square: 2.17614023302020
+Energy:  2.33647142376635
+Chemical potential:  3.19264410990514
+Angular momentum:  7.27771994347126
+Stopping criterion (stops at 1.000000e-06):  4.978197e-04
+Energy evolution:  -6.404531e-04
+----------------------------------------
+CPU time:   2968.84
+----------------------------------------
+Iteration 410 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000025704
+x-radius mean square: 2.15813337496472
+y-radius mean square: 2.18872932001143
+Energy:  2.33030424743755
+Chemical potential:  3.17667470116342
+Angular momentum:  7.39978292773194
+Stopping criterion (stops at 1.000000e-06):  4.804338e-04
+Energy evolution:  -5.968559e-04
+----------------------------------------
+CPU time:   3040.36
+----------------------------------------
+Iteration 420 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000025386
+x-radius mean square: 2.17056073919564
+y-radius mean square: 2.20080485007274
+Energy:  2.32458546920186
+Chemical potential:  3.16172868100676
+Angular momentum:  7.51931753933188
+Stopping criterion (stops at 1.000000e-06):  4.610697e-04
+Energy evolution:  -5.512848e-04
+----------------------------------------
+CPU time:   3112.89
+----------------------------------------
+Iteration 430 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000025077
+x-radius mean square: 2.18262738380085
+y-radius mean square: 2.21230669226199
+Energy:  2.31932499430527
+Chemical potential:  3.14783877943189
+Angular momentum:  7.63547975792590
+Stopping criterion (stops at 1.000000e-06):  4.404062e-04
+Energy evolution:  -5.054767e-04
+----------------------------------------
+CPU time:   3184.26
+----------------------------------------
+Iteration 440 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000024776
+x-radius mean square: 2.19426354226269
+y-radius mean square: 2.22320002325608
+Energy:  2.31451732511325
+Chemical potential:  3.13499979654582
+Angular momentum:  7.74762027295466
+Stopping criterion (stops at 1.000000e-06):  4.186959e-04
+Energy evolution:  -4.608056e-04
+----------------------------------------
+CPU time:   3256.33
+----------------------------------------
+Iteration 450 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000024485
+x-radius mean square: 2.20541923626655
+y-radius mean square: 2.23347182934038
+Energy:  2.31014527378585
+Chemical potential:  3.12317742210045
+Angular momentum:  7.85527826871171
+Stopping criterion (stops at 1.000000e-06):  3.965676e-04
+Energy evolution:  -4.182753e-04
+----------------------------------------
+CPU time:   3328.16
+----------------------------------------
+Iteration 460 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000024204
+x-radius mean square: 2.21606275038316
+y-radius mean square: 2.24312674664104
+Energy:  2.30618350956664
+Chemical potential:  3.11231682253900
+Angular momentum:  7.95816435311551
+Stopping criterion (stops at 1.000000e-06):  3.742285e-04
+Energy evolution:  -3.785523e-04
+----------------------------------------
+CPU time:   3400.90
+----------------------------------------
+Iteration 470 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000023932
+x-radius mean square: 2.22617833801876
+y-radius mean square: 2.25218284215031
+Energy:  2.30260163748390
+Chemical potential:  3.10235018840465
+Angular momentum:  8.05613719580514
+Stopping criterion (stops at 1.000000e-06):  3.519895e-04
+Energy evolution:  -3.420211e-04
+----------------------------------------
+CPU time:   3473.31
+----------------------------------------
+Iteration 480 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000023669
+x-radius mean square: 2.23576356673162
+y-radius mean square: 2.26066773855247
+Energy:  2.29936668006899
+Chemical potential:  3.09320286870855
+Angular momentum:  8.14917768835413
+Stopping criterion (stops at 1.000000e-06):  3.301117e-04
+Energy evolution:  -3.088458e-04
+----------------------------------------
+CPU time:   3544.62
+----------------------------------------
+Iteration 490 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000023415
+x-radius mean square: 2.24482661872920
+y-radius mean square: 2.26861530151097
+Energy:  2.29644495638502
+Chemical potential:  3.08479803566923
+Angular momentum:  8.23736341457925
+Stopping criterion (stops at 1.000000e-06):  3.087932e-04
+Energy evolution:  -2.790283e-04
+----------------------------------------
+CPU time:   3616.74
+----------------------------------------
+Iteration 500 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000023170
+x-radius mean square: 2.25338376113695
+y-radius mean square: 2.27606296544081
+Energy:  2.29380342339896
+Chemical potential:  3.07706001521590
+Angular momentum:  8.32084520655926
+Stopping criterion (stops at 1.000000e-06):  2.881768e-04
+Energy evolution:  -2.524577e-04
+----------------------------------------
+CPU time:   3688.07
+----------------------------------------
+Iteration 510 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000022932
+x-radius mean square: 2.26145710834475
+y-radius mean square: 2.28304967743981
+Energy:  2.29141057508166
+Chemical potential:  3.06991650998039
+Angular momentum:  8.39982671144626
+Stopping criterion (stops at 1.000000e-06):  2.683562e-04
+Energy evolution:  -2.289504e-04
+----------------------------------------
+CPU time:   3758.42
+----------------------------------------
+Iteration 520 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000022701
+x-radius mean square: 2.26907272914929
+y-radius mean square: 2.28961438696253
+Energy:  2.28923699861850
+Chemical potential:  3.06329996107795
+Angular momentum:  8.47454728375556
+Stopping criterion (stops at 1.000000e-06):  2.493927e-04
+Energy evolution:  -2.082800e-04
+----------------------------------------
+CPU time:   3829.21
+----------------------------------------
+Iteration 530 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000022477
+x-radius mean square: 2.27625910293154
+y-radius mean square: 2.29579498720586
+Energy:  2.28725567711987
+Chemical potential:  3.05714827532705
+Angular momentum:  8.54526811936160
+Stopping criterion (stops at 1.000000e-06):  2.313418e-04
+Energy evolution:  -1.901988e-04
+----------------------------------------
+CPU time:   3899.52
+----------------------------------------
+Iteration 540 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000022260
+x-radius mean square: 2.28304589777741
+y-radius mean square: 2.30162761083428
+Energy:  2.28544211261208
+Chemical potential:  3.05140510854792
+Angular momentum:  8.61226131264431
+Stopping criterion (stops at 1.000000e-06):  2.142809e-04
+Energy evolution:  -1.744533e-04
+----------------------------------------
+CPU time:   3968.11
+----------------------------------------
+Iteration 550 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000022048
+x-radius mean square: 2.28946303074507
+y-radius mean square: 2.30714619407234
+Energy:  2.28377432658834
+Chemical potential:  3.04601985226063
+Angular momentum:  8.67580143092674
+Stopping criterion (stops at 1.000000e-06):  2.113199e-04
+Energy evolution:  -1.607940e-04
+----------------------------------------
+CPU time:   4034.02
+----------------------------------------
+Iteration 560 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000021843
+x-radius mean square: 2.29553996287727
+y-radius mean square: 2.31238223489993
+Energy:  2.28223278093073
+Chemical potential:  3.04094743494165
+Angular momentum:  8.73615916618814
+Stopping criterion (stops at 1.000000e-06):  2.104317e-04
+Energy evolution:  -1.489821e-04
+----------------------------------------
+CPU time:   4100.84
+----------------------------------------
+Iteration 570 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000021644
+x-radius mean square: 2.30130518680855
+y-radius mean square: 2.31736468976207
+Energy:  2.28080024985670
+Chemical potential:  3.03614801414667
+Angular momentum:  8.79359667429392
+Stopping criterion (stops at 1.000000e-06):  2.093591e-04
+Energy evolution:  -1.387931e-04
+----------------------------------------
+CPU time:   4166.63
+----------------------------------------
+Iteration 580 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000021451
+x-radius mean square: 2.30678586370433
+y-radius mean square: 2.32211996182734
+Energy:  2.27946166455993
+Chemical potential:  3.03158661514807
+Angular momentum:  8.84836422952003
+Stopping criterion (stops at 1.000000e-06):  2.081142e-04
+Energy evolution:  -1.300186e-04
+----------------------------------------
+CPU time:   4231.36
+----------------------------------------
+Iteration 590 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000021264
+x-radius mean square: 2.31200757824798
+y-radius mean square: 2.32667195100468
+Energy:  2.27820394500066
+Chemical potential:  3.02723274877167
+Angular momentum:  8.90069791446340
+Stopping criterion (stops at 1.000000e-06):  2.067038e-04
+Energy evolution:  -1.224675e-04
+----------------------------------------
+CPU time:   4295.61
+----------------------------------------
+Iteration 600 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000021084
+x-radius mean square: 2.31699418245706
+y-radius mean square: 2.33104214150344
+Energy:  2.27701582845700
+Chemical potential:  3.02306003087650
+Angular momentum:  8.95081809860210
+Stopping criterion (stops at 1.000000e-06):  2.051607e-04
+Energy evolution:  -1.159657e-04
+----------------------------------------
+CPU time:   4359.19
+----------------------------------------
+Iteration 610 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000020910
+x-radius mean square: 2.32176770669146
+y-radius mean square: 2.33524971160138
+Energy:  2.27588770083827
+Chemical potential:  3.01904581535860
+Angular momentum:  8.99892851948581
+Stopping criterion (stops at 1.000000e-06):  2.034672e-04
+Energy evolution:  -1.103558e-04
+----------------------------------------
+CPU time:   4423.02
+----------------------------------------
+Iteration 620 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000020744
+x-radius mean square: 2.32634832077319
+y-radius mean square: 2.33931165520713
+Energy:  2.27481143426964
+Chemical potential:  3.01517084673305
+Angular momentum:  9.04521582212547
+Stopping criterion (stops at 1.000000e-06):  2.016081e-04
+Energy evolution:  -1.054964e-04
+----------------------------------------
+CPU time:   4486.74
+----------------------------------------
+Iteration 630 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000020585
+x-radius mean square: 2.33075433396084
+y-radius mean square: 2.34324291023876
+Energy:  2.27378023276261
+Chemical potential:  3.01141893324988
+Angular momentum:  9.08984945564784
+Stopping criterion (stops at 1.000000e-06):  1.995786e-04
+Energy evolution:  -1.012608e-04
+----------------------------------------
+CPU time:   4550.32
+----------------------------------------
+Iteration 640 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000020434
+x-radius mean square: 2.33500222187786
+y-radius mean square: 2.34705648778559
+Energy:  2.27278848682034
+Chemical potential:  3.00777664193645
+Angular momentum:  9.13298183395449
+Stopping criterion (stops at 1.000000e-06):  1.974140e-04
+Energy evolution:  -9.753667e-05
+----------------------------------------
+CPU time:   4613.15
+----------------------------------------
+Iteration 650 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000020292
+x-radius mean square: 2.33910667546169
+y-radius mean square: 2.35076360192544
+Energy:  2.27183163705230
+Chemical potential:  3.00423301259780
+Angular momentum:  9.17474871119546
+Stopping criterion (stops at 1.000000e-06):  1.950770e-04
+Energy evolution:  -9.422497e-05
+----------------------------------------
+CPU time:   4676.36
+----------------------------------------
+Iteration 660 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000020159
+x-radius mean square: 2.34308066609348
+y-radius mean square: 2.35437379851769
+Energy:  2.27090604657795
+Chemical potential:  3.00077928936189
+Angular momentum:  9.21526972468767
+Stopping criterion (stops at 1.000000e-06):  1.925538e-04
+Energy evolution:  -9.123892e-05
+----------------------------------------
+CPU time:   4740.80
+----------------------------------------
+Iteration 670 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000020035
+x-radius mean square: 2.34693552529297
+y-radius mean square: 2.35789508461478
+Energy:  2.27000888174341
+Chemical potential:  2.99740866635235
+Angular momentum:  9.25464908324068
+Stopping criterion (stops at 1.000000e-06):  1.898774e-04
+Energy evolution:  -8.850331e-05
+----------------------------------------
+CPU time:   4804.07
+----------------------------------------
+Iteration 680 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000019922
+x-radius mean square: 2.35068103267673
+y-radius mean square: 2.36133405501590
+Energy:  2.26913800090247
+Chemical potential:  2.99411604836777
+Angular momentum:  9.29297635837323
+Stopping criterion (stops at 1.000000e-06):  1.870297e-04
+Energy evolution:  -8.595373e-05
+----------------------------------------
+CPU time:   4867.79
+----------------------------------------
+Iteration 690 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000019820
+x-radius mean square: 2.35432551400826
+y-radius mean square: 2.36469601968541
+Energy:  2.26829185076635
+Chemical potential:  2.99089782263359
+Angular momentum:  9.33032737854927
+Stopping criterion (stops at 1.000000e-06):  1.840133e-04
+Energy evolution:  -8.353582e-05
+----------------------------------------
+CPU time:   4931.44
+----------------------------------------
+Iteration 700 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000019729
+x-radius mean square: 2.35787594602874
+y-radius mean square: 2.36798513040140
+Energy:  2.26746937015059
+Chemical potential:  2.98775164215870
+Angular momentum:  9.36676520162173
+Stopping criterion (stops at 1.000000e-06):  1.808648e-04
+Energy evolution:  -8.120446e-05
+----------------------------------------
+CPU time:   4994.89
+----------------------------------------
+Iteration 710 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000019650
+x-radius mean square: 2.36133806637241
+y-radius mean square: 2.37120450615569
+Energy:  2.26666990101212
+Chemical potential:  2.98467622072641
+Angular momentum:  9.40234114923025
+Stopping criterion (stops at 1.000000e-06):  1.775312e-04
+Energy evolution:  -7.892316e-05
+----------------------------------------
+CPU time:   5058.89
+----------------------------------------
+Iteration 720 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000019585
+x-radius mean square: 2.36471648824962
+y-radius mean square: 2.37435635786512
+Energy:  2.26589310672265
+Chemical potential:  2.98167113905168
+Angular momentum:  9.43709589332996
+Stopping criterion (stops at 1.000000e-06):  1.741457e-04
+Energy evolution:  -7.666323e-05
+----------------------------------------
+CPU time:   5122.77
+----------------------------------------
+Iteration 730 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000019534
+x-radius mean square: 2.36801481739252
+y-radius mean square: 2.37744211064554
+Energy:  2.26513889767777
+Chemical potential:  2.97873666356175
+Angular momentum:  9.47106057432651
+Stopping criterion (stops at 1.000000e-06):  1.706947e-04
+Energy evolution:  -7.440312e-05
+----------------------------------------
+CPU time:   5185.93
+----------------------------------------
+Iteration 740 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000019497
+x-radius mean square: 2.37123576993935
+y-radius mean square: 2.38046252288890
+Energy:  2.26440736432780
+Chemical potential:  2.97587357859865
+Angular momentum:  9.50425793579273
+Stopping criterion (stops at 1.000000e-06):  1.671409e-04
+Energy evolution:  -7.212761e-05
+----------------------------------------
+CPU time:   5249.14
+----------------------------------------
+Iteration 750 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000019475
+x-radius mean square: 2.37438129090060
+y-radius mean square: 2.38341780221859
+Energy:  2.26369871769239
+Chemical potential:  2.97308303210298
+Angular momentum:  9.53670346432955
+Stopping criterion (stops at 1.000000e-06):  1.636623e-04
+Energy evolution:  -6.982712e-05
+----------------------------------------
+CPU time:   5312.98
+----------------------------------------
+Iteration 760 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000019471
+x-radius mean square: 2.37745267036324
+y-radius mean square: 2.38630771597739
+Energy:  2.26301323742110
+Chemical potential:  2.97036639673961
+Angular momentum:  9.56840651253511
+Stopping criterion (stops at 1.000000e-06):  1.600947e-04
+Energy evolution:  -6.749689e-05
+----------------------------------------
+CPU time:   5376.45
+----------------------------------------
+Iteration 770 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000019483
+x-radius mean square: 2.38045065520552
+y-radius mean square: 2.38913169446290
+Energy:  2.26235122740609
+Chemical potential:  2.96772514762368
+Angular momentum:  9.59937138563063
+Stopping criterion (stops at 1.000000e-06):  1.564054e-04
+Energy evolution:  -6.513630e-05
+----------------------------------------
+CPU time:   5440.48
+----------------------------------------
+Iteration 780 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000019514
+x-radius mean square: 2.38337555728522
+y-radius mean square: 2.39188892819234
+Energy:  2.26171297873228
+Chemical potential:  2.96516075536877
+Angular momentum:  9.62959838714172
+Stopping criterion (stops at 1.000000e-06):  1.526402e-04
+Energy evolution:  -6.274808e-05
+----------------------------------------
+CPU time:   5504.69
+----------------------------------------
+Iteration 790 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000019565
+x-radius mean square: 2.38622735455102
+y-radius mean square: 2.39457845617362
+Energy:  2.26109873976806
+Chemical potential:  2.96267459631282
+Angular momentum:  9.65908480022349
+Stopping criterion (stops at 1.000000e-06):  1.488172e-04
+Energy evolution:  -6.033766e-05
+----------------------------------------
+CPU time:   5567.77
+----------------------------------------
+Iteration 800 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000019637
+x-radius mean square: 2.38900578369040
+y-radius mean square: 2.39719924424334
+Energy:  2.26050869304224
+Chemical potential:  2.96026787986736
+Angular momentum:  9.68782579145528
+Stopping criterion (stops at 1.000000e-06):  1.449349e-04
+Energy evolution:  -5.791247e-05
+----------------------------------------
+CPU time:   5631.27
+----------------------------------------
+Iteration 800 on 800
+---Outputs of component 1---------------
+Square at the origin: 0.00000000019637
+x-radius mean square: 2.38900578369040
+y-radius mean square: 2.39719924424334
+Energy:  2.26050869304224
+Chemical potential:  2.96026787986736
+Angular momentum:  9.68782579145528
+Stopping criterion (stops at 1.000000e-06):  1.449349e-04
+Energy evolution:  0.000000e+00
+----------------------------------------
+CPU time:   5631.27
+数据已保存到 GPELab_BEFD_results.mat
