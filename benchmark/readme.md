@@ -1,153 +1,104 @@
-# 2D GPE Solver with Tensor Network Methods
+# 2D Rotated GPE Benchmark
 
-This repository contains implementations of tensor network-based methods for solving the two-dimensional Gross–Pitaevskii equation (GPE), 
-including gradient descent (GD), imaginary time evolution (TDVP), and real-time evolution, all applied to vortex-state dynamics. The codes 
-are organized into four main directories:
+## Folder structure
 
-## Dependencies
+- **YK_long**  
+  ITE method used in the paper, which is an **explicit finite element imaginary time method**.
 
-The following Python packages are required:
+- **FD**  
+  **Backward Euler Finite Difference (BEFD)** method.
 
-- [xfac](https://github.com/tensor4all/xfac)  
-  Please install the **Python version** of `xfac` by following the instructions in the linked repository. Be sure to include the build flag:  
-  ```
-  -D XFAC_BUILD_PYTHON=ON
-  ```
-  After installation, you need to linked the package directory in `tci.py`
-  ```
-  import os, sys 
-  sys.path.append('your_dir/xfac/build/python/')
-  ```
-- numpy  
-- scipy  
-- matplotlib  
-- ncon  
-- pickle
-- jax
+- **SP**  
+  **Backward Euler Pseudo-Spectral (BESP)** method.
 
-Install them using pip:
+The BEFD and BESP schemes follow the implementations described in the **GPELab toolbox**:  
+https://gpelab.math.cnrs.fr/
+
+GPELab provides numerical solvers for Gross–Pitaevskii equations including BEFD and BESP discretizations.
+
+---
+
+## Initial condition
+
+`im.zip` contains the initial wave function with **7 vortices**.
+
+Extract it and you will obtain
+
 ```
-pip3 install numpy scipy matplotlib ncon pickle
+wave_real_imag.txt
 ```
 
-Or you can install the all packages and creating new python environment through the `cytnx.yml` except for package `xfac`.
-If you use the initial state to be random state, then the package `xfac` is not required.
+Put this file into:
 
-## Folder Structure
-
-### 1. `GD/`: Gradient Descent Solver
-
-This folder contains a gradient descent algorithm for solving the 2D Gross–Pitaevskii equation.
-
-Run the main script:
 ```
-python -O GP_vortex_GD.py
-```
-
-To run it in the background (**Strongly recommended to run all the program in the background.**):
-```
-nohup python -O GP_vortex_GD.py &
-```
-
-Important physical parameters in `GP_vortex_GD.py`, `GP_vortex_exact.py`, `GP_vortex_fit.py`, and `GP_vortex_SRC.py`:
-```python
-N = 8                     # Number of qubits in x and y directions
-x1, x2 = -6, 6            # Spatial domain boundaries
-Ndx = 2**N
-dx = (x2 - x1) / Ndx      # Grid displacement
-
-g = 100 / dx**2           # Nonlinear interaction parameters
-omega = 0.8               # Rotation frequency
-maxdim = 10               # Bond dimension for the MPS
-maxdim_psi2 = 1000000000  # Bond dimension for nonlinear term
-cutoff_mps = 1e-12        # wave function cutoff
-cutoff_mps2 = 1e-8        # density function (abs(psi)^2) cutoff 
-psi2_update_length = 1
-steps = 10                # Number of optimization steps
-step_iter = 5             # Interval to autosave output
-dt = dx**2 / 2            # Time displacement (any positive value for GD)
-```
-
-The difference of `GP_vortex_GD.py`, `GP_vortex_exact.py`, `GP_vortex_fit.py`, and `GP_vortex_SRC.py`.
-
-`GP_vortex_GD.py` : Directlly run the gradient descent.
-
-`GP_vortex_exact.py` : One(or more) step TDVP can increase the bond dimension of the initial state by exactly constructing the $|\psi(x,t)|^2$. This is feasible only for small $N_{qubit}$ = 8~12.
-
-`GP_vortex_SRC.py` : One(or more) step TDVP can increase the bond dimension of the initial state by [SRC](https://arxiv.org/pdf/2504.06475) algorithm constructing the $|\psi(x,t)|^2$. This is feasible only for middle $N_{qubit}$ = 12 ~ 17.
-
-`GP_vortex_fit.py` : One(or more) step TDVP can increase the bond dimension of the initial state by fit(variational) constructing the $|\psi(x,t)|^2$. This is feasible only for large $N_{qubit}$ = 17 to more.
-
-After the simulation completes, run:
-```
-python GD_catch_data.py
-```
-
-Make sure `steps` and `step_iter` in `GD_catch_data.py` match those in `GP_vortex_GD.py`.
-
-To visualize the density (i.e., `abs(psi)^2`):
-```
-python plot2D_sec.py
+FD/Examples
+SP/Examples
+YK_long
 ```
 
 ---
 
-### 2. `IMT_TDVP/`: Imaginary Time Evolution (TDVP)
+## Usage
 
-This folder implements imaginary time evolution for solving the 2D rotating GPE using the TDVP method.
-Same physical parameters as in the GD solver.
-Run:
-```
-python -O TDVP.py
-```
+First extract the initial condition:
 
-After completion, visualize the result:
-```
-python TDVP_catch_data.py
-```
-
-However, for onsidering the algorithm stability, the time step `dt` must satisfy:
-```python
-dt <= dx**2 / 2
+```bash
+unzip im.zip
 ```
 
 ---
 
-### 3. `REAL_TIME_TDVP/`: Real-Time Evolution
+### YK_long
 
-This folder implements real-time evolution of the 2D GPE using TDVP.
+Go to the `YK_long` folder and run
 
-Run:
+```bash
+nohup matlab -nodisplay -nosplash < gpe_run.m > run.log &
 ```
-python -O RT_TDVP.py
-```
-
-Then plot observables:
-```
-python plot_bondim.py   # Bond dimension vs Steps
-python plot_pos.py      # Expectation value of position vs time (steps * dt)
-```
-
-In `RT_TDVP.py`, you can specify a saved MPS as initial state. Here we use 
-the `GD2_mps_step_3000_input.pkl` to be an example:
-```python
-psi = get_init_other_state(N, x1, x2, maxdim, "GD2_mps_step_3000_input.pkl")
-```
-
-Make `GD2_mps_step_3000_input.pkl` sure the file exists.
 
 ---
 
-### 4. `NumpyTensorTools/`: Source Modules
+### FD (BEFD)
 
-This folder contains core tensor network algorithm modules for:
+Go to the `FD` folder and run
 
-- Gradient Descent
-- TDVP (Time-Dependent Variational Principle)
-- DMRG (Density Matrix Renormalization Group)
+```bash
+nohup matlab -batch "addpath(genpath(pwd)); addpath(genpath(fullfile(pwd,'Variables'))); BEFD" > run.log 2>&1 &
+```
 
-Feel free to explore this folder if you want to understand the tensornetwork algorithm logic.                                                                                             
-                                                                                                                                                                                                                                            
-     
+---
 
+### SP (BESP)
 
+Go to the `SP` folder and run
+
+```bash
+nohup matlab -batch "addpath(genpath(pwd)); addpath(genpath(fullfile(pwd,'Variables'))); BESP" > run.log 2>&1 &
+```
+
+---
+
+## Output
+
+The following quantities will be stored in `.mat` files:
+
+- CPU time
+- Energy
+- Chemical potential
+
+---
+
+## Reference
+
+The BEFD and BESP schemes follow the numerical framework described in:
+
+X. Antoine, R. Duboscq  
+*GPELab, a Matlab Toolbox to Solve Gross–Pitaevskii Equations I: Computation of Stationary Solutions*  
+Computer Physics Communications 185 (2014), 2969–2991.
+
+X. Antoine, R. Duboscq  
+*GPELab, a Matlab Toolbox to Solve Gross–Pitaevskii Equations II: Dynamics and Stochastic Simulations*  
+Computer Physics Communications 193 (2015), 95–117.
+
+More information about the toolbox can be found at:  
+https://gpelab.math.cnrs.fr/
