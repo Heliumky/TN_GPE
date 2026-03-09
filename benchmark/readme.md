@@ -92,7 +92,7 @@ The following quantities will be stored in `.mat` files:
 
 ## Plotting
 
-Put all `.mat` files in `GD` folder
+Put all `.mat` files and `YK_long/run.log` in `GD` folder
 
 Also you can run GD method to get QTT GD data by
 
