@@ -88,6 +88,26 @@ The following quantities will be stored in `.mat` files:
 
 ---
 
+---
+
+## Plotting
+
+Put all `.mat` files in `GD` folder
+
+Also you can run GD method to get QTT GD data by
+
+```bash
+nohup python -O GP_vortex_test.py &
+```
+
+and we can use `figure.py` to plot all the data.
+
+```bash
+python figure.py
+```
+
+---
+
 ## Reference
 
 The BEFD and BESP schemes follow the numerical framework described in:
